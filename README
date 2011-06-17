@@ -4,5 +4,5 @@ in the SSID
 
 thomsoncrack requires pthreads and libcrypto from openssl
 
-I based this off of the python scripy found at the following
+I based this off of the python script found at the following
 url: http://www.korokithakis.net/posts/thomsonspeedtouch-routers-and-wpa-keys/
