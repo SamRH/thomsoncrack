@@ -6,7 +6,7 @@ add_executable(thomsoncrack thomsoncrack.c)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 if(CMAKE_COMPILER_IS_GNUCC)
-  set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -std=c99")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -pedantic -std=c99")
 endif()
 
 find_library(PTHREAD pthread)
