@@ -1,8 +1,8 @@
-thomsoncrack is a small utility to generate possible WPA
+thomsoncrack is a small utility used to generate possible WPA
 keys for thomson routers based off of information found 
-in the SSID
+in the default SSID.
 
-thomsoncrack requires pthreads and libcrypto from openssl
+thomsoncrack requires pthreads and libcrypto from openssl.
 
-I based this off of the python script found at the following
-url: http://www.korokithakis.net/posts/thomsonspeedtouch-routers-and-wpa-keys/
+This application is based off of the python script found at the following url: 
+http://www.korokithakis.net/posts/thomsonspeedtouch-routers-and-wpa-keys/
