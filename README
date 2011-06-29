@@ -1,3 +1,5 @@
+README
+
 thomsoncrack is a small utility used to generate possible WPA
 keys for thomson routers based off of information found 
 in the default SSID.
