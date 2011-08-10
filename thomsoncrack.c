@@ -105,11 +105,14 @@ int main(int argc, char *argv[])
 	}
 	
 	/* Keep windows users happy */
+	#ifdef OS_WINDOWS
 	char c;
 	puts("Press enter to exit...");
 	fflush(stdout);
 	while((c = getchar()) != '\n' && c != EOF)
 		continue;
 	getchar();
+	#endif
+
 	return EXIT_SUCCESS;
 }
