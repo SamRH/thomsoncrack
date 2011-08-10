@@ -9,6 +9,10 @@ if(CMAKE_COMPILER_IS_GNUCC)
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -pedantic -std=c99")
 endif()
 
+if(WIN32)
+  add_definitions(-DOS_WINDOWS)
+endif()
+
 find_library(PTHREAD pthread)
 find_library(CRYPTO crypto)
 target_link_libraries(thomsoncrack ${PTHREAD} ${CRYPTO})
