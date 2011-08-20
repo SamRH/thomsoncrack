@@ -17,4 +17,6 @@ find_library(PTHREAD pthread)
 find_library(CRYPTO crypto)
 target_link_libraries(thomsoncrack ${PTHREAD} ${CRYPTO})
 
-
+if(UNIX)
+  INSTALL(PROGRAMS ${CMAKE_CURRENT_BINARY_DIR}/thomsoncrack DESTINATION bin)
+endif()
