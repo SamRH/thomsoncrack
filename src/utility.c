@@ -4,12 +4,12 @@
 #include "lookup_hex.h"
 #include "utility.h"
 
-// Convert a sha1 hash to a hexidecimal string
+//Convert a sha1 hash to a hexidecimal string
 void sha1_to_str(unsigned char *sha1, char *str)
 {
-	for (int i = 0; i < 20; i++)
+	for (register int i = 0; i < 20; i++)
 	{
-		memcpy(str + (i*2), lookup_hex[(int)sha1[i]], 2);
+		memcpy(str + i * 2, lookup_hex[(int)sha1[i]], 2);
 	}
 }
 

@@ -3,7 +3,7 @@
 
 //used to convert a hexidecimal number to a hexidecimal string
 //0xAC => "0xAC"
-char *lookup_hex[] = { 
+const char *lookup_hex[] = { 
 	"00", "01", "02", "03", "04", 
 	"05", "06", "07", "08", "09", 
 	"0A", "0B", "0C", "0D", "0E", 
