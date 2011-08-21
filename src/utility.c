@@ -1,3 +1,6 @@
+#include <string.h>
+#include <ctype.h>
+
 #include "lookup_hex.h"
 #include "utility.h"
 

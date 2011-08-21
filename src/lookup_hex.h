@@ -58,4 +58,4 @@ char *lookup_hex[] = {
 	"FF"
 };
 
-#endif LOOKUP_HEX_H
+#endif
