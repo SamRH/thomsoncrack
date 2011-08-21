@@ -53,7 +53,7 @@ void *calc_wpa_key(void *arg)
 					SHA1((const unsigned char*)serial, strlen(serial), sha1_out);
 					sha1_to_str(sha1_out, sha1_out_str);
 					
-					if (memcmp(&sha1_out_str[40] - 6, ident, 7) == 0)
+					if (memcmp(&sha1_out_str[40] - 6, ident, 6) == 0)
 					{
 						sha1_out_str[10] = '\0';
 
