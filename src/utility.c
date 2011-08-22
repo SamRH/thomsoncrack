@@ -11,6 +11,7 @@ void sha1_to_str(unsigned char *sha1, char *str)
 	{
 		memcpy(str + i * 2, lookup_hex[(unsigned int)sha1[i]], 2);
 	}
+	str[40] = '\0';
 }
 
 //transform all characters of a string into uppercase characters
