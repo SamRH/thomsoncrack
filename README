@@ -1,13 +1,13 @@
 README for thomsoncrack
 
 thomsoncrack is a small utility used to generate possible WPA
-keys for thomson routers based off of information found 
-in the default SSID.
+keys for thomson routers using information found in the default 
+SSID.
 
 The executable accepts one argument and that is the identifying
 string at the end of the SSID. For example, if the ssid was
 "ThomsonCDEA15" then usage would be: `thomsoncrack CDEA15`
-The output would look somthing like:
+The resulting output would look somthing like:
 Possible Key Found: 68510B64B3
 Possible Key Found: B264B29568
 
