@@ -7,9 +7,9 @@
 //Convert a sha1 hash to a hexidecimal string
 void sha1_to_str(unsigned char *sha1, char *str)
 {
-	for (register int i = 0; i < 20; i++)
+	for (int i = 0; i < 20; i++)
 	{
-		memcpy(str + i * 2, lookup_hex[(int)sha1[i]], 2);
+		memcpy(str + i * 2, lookup_hex[(unsigned int)sha1[i]], 2);
 	}
 }
 
