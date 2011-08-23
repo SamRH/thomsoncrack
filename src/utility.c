@@ -1,15 +1,16 @@
 #include <string.h>
+#include <stdio.h>
 #include <ctype.h>
 
-#include "lookup_hex.h"
 #include "utility.h"
 
 //Convert a sha1 hash to a hexidecimal string
 void sha1_to_str(unsigned char *sha1, char *str)
 {
+
 	for (int i = 0; i < 20; i++)
 	{
-		memcpy(str + i * 2, lookup_hex[(unsigned int)sha1[i]], 2);
+		sprintf(&str[i*2], "%02hhX", sha1[i]);
 	}
 	str[40] = '\0';
 }
