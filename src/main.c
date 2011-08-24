@@ -21,35 +21,37 @@ void usage(const char *name)
 /* Run from a thread. 
  * arg should point to an integer containing the year number
  * to calculate the wpa keys for.
- * Will check if the WPA keys could be valid for 
+ * Will check if the WPA keys could be valid for router with provided ssid identifier
  */
 void *calc_wpa_key(void *arg)
 {
 	//Possible characters that make up the key
-	const char chars[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	const unsigned char chars[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	
 	int year = *((int *)arg);
 	char str[3];
 	char serial[13];
 	unsigned char sha1_out[20];
-	char sha1_out_str[41];
+	unsigned char sha1_out_str[41];
 	
-	for (int week = 1; week < 53; week++) //53 = maximum number of weeks in a year.
+	const int NUM_WEEKS_YEAR = 52;
+	const int NUM_POSSIBLE_CHARS = 36;
+
+	for (int week = 1; week <= NUM_WEEKS_YEAR; week++)
 	{
-		for (int i = 0; i < 36; i++) //36 = amount of possible characters (sizeof chars).
+		for (int i = 0; i < NUM_POSSIBLE_CHARS; i++)
 		{
-			for (int j = 0; j < 36; j++)
+			for (int j = 0; j < NUM_POSSIBLE_CHARS; j++)
 			{
-				for (int k = 0; k < 36; k++)
+				for (int k = 0; k < NUM_POSSIBLE_CHARS; k++)
 				{
 					str[0] = chars[i];
 					str[1] = chars[j];
 					str[2] = chars[k];
-					
+
 					sprintf(serial, "CP%02d%02d%X%X%X", year, week, str[0], str[1], str[2]);
-					
-					SHA1((const unsigned char*)serial, strlen(serial), sha1_out);
-					
+					SHA1(serial, strlen(serial), sha1_out);
+
 					if (memcmp(&sha1_out[19] - 2, ident, 3) == 0)
 					{
 						sha1_to_str(sha1_out, sha1_out_str);
