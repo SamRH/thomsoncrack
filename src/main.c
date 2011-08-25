@@ -18,12 +18,9 @@ void usage(const char *name)
 	printf("Usage: %s ssid_identifier\nExample ssid_identifier: CDEA15\n", name);
 }
 
-/* Run from a thread. 
- * arg should point to an integer containing the year number
- * to calculate the wpa keys for.
- * Will check if the WPA keys could be valid for router with provided ssid identifier
- */
-void *calc_wpa_key(void *arg)
+//Calculate possible wep and wpa keys for the year passed as an integer
+//intended to be run from pthread_create
+void *calc_possible_key(void *arg)
 {
 	//Possible characters that make up the key
 	const unsigned char chars[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -95,7 +92,7 @@ int main(int argc, char *argv[])
 	for (int i = 0; i < NUM_OF_YEARS; i++)
 	{
 		year[i] = YEAR_BEGIN_NUM + i;
-		if(pthread_create(&thread[i], NULL, &calc_wpa_key, &year[i]))
+		if(pthread_create(&thread[i], NULL, &calc_possible_key, &year[i]))
 		{
     		printf("Error creating thread\n");
         	return EXIT_FAILURE;
