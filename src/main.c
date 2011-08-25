@@ -11,7 +11,7 @@
 #define NUM_OF_YEARS 8  //and work for all models made up to and including 2010. 2 + 8 = 10
 
 //the identifying part of the ssid converted back to integers
-const unsigned char ident[3];
+unsigned char ident[3];
 
 void usage(const char *name)
 {
