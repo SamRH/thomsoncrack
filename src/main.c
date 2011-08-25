@@ -32,7 +32,7 @@ void *calc_wpa_key(void *arg)
 	char str[3];
 	char serial[13];
 	unsigned char sha1_out[20];
-	unsigned char sha1_out_str[41];
+	char sha1_out_str[41];
 	
 	const int NUM_WEEKS_YEAR = 52;
 	const int NUM_POSSIBLE_CHARS = 36;
@@ -50,7 +50,7 @@ void *calc_wpa_key(void *arg)
 					str[2] = chars[k];
 
 					sprintf(serial, "CP%02d%02d%X%X%X", year, week, str[0], str[1], str[2]);
-					SHA1(serial, strlen(serial), sha1_out);
+					SHA1((const unsigned char *)serial, strlen(serial), sha1_out);
 
 					if (memcmp(&sha1_out[19] - 2, ident, 3) == 0)
 					{
