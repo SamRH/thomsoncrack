@@ -94,8 +94,8 @@ int main(int argc, char *argv[])
 		year[i] = YEAR_BEGIN_NUM + i;
 		if(pthread_create(&thread[i], NULL, &calc_possible_key, &year[i]))
 		{
-    		printf("Error creating thread\n");
-        	return EXIT_FAILURE;
+			printf("Error creating thread\n");
+			return EXIT_FAILURE;
 		}
 	}
 	
