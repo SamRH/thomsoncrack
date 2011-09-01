@@ -46,7 +46,7 @@ void *calc_possible_key(void *arg)
 					str[1] = chars[j];
 					str[2] = chars[k];
 
-					sprintf(serial, "CP%02d%02d%X%X%X", year, week, str[0], str[1], str[2]);
+					sprintf(serial, "CP%02d%02d%02X%02X%02X", year, week, str[0], str[1], str[2]);
 					SHA1((const unsigned char *)serial, strlen(serial), sha1_out);
 
 					if (memcmp(&sha1_out[19] - 2, ident, 3) == 0)
