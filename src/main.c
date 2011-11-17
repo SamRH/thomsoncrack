@@ -7,10 +7,10 @@
 
 #include "utility.h"
 
-#define YEAR_BEGIN_NUM 2 //This "hack" is known to work with models made during the year 2002
-#define NUM_OF_YEARS 8  //and work for all models made up to and including 2010. 2 + 8 = 10
+#define YEAR_BEGIN_NUM 8 //This "hack" is known to work with models made during the year 2008
+#define NUM_OF_YEARS 2  //and work for all models made up to and including 2010. 8 + 2 = 10
 
-//the identifying part of the ssid converted back to integers
+//the identifying part of the ssid converted back to binary data
 unsigned char ident[3];
 
 void usage(const char *name)
