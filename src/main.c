@@ -31,7 +31,7 @@ void *calc_possible_key(void *arg)
 	unsigned char sha1_out[20];
 	char sha1_out_str[41];
 	
-	const int NUM_WEEKS_YEAR = 52;
+	const int NUM_WEEKS_YEAR = 53;
 	const int NUM_POSSIBLE_CHARS = 36;
 
 	for (int week = 1; week <= NUM_WEEKS_YEAR; week++)
@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
 	
 	pthread_t thread[NUM_OF_YEARS];
 	int year[NUM_OF_YEARS];
-	for (int i = 0; i < NUM_OF_YEARS; i++)
+	for (int i = 0; i <= NUM_OF_YEARS; i++)
 	{
 		year[i] = YEAR_BEGIN_NUM + i;
 		if(pthread_create(&thread[i], NULL, &calc_possible_key, &year[i]))
