@@ -53,7 +53,7 @@ void *calc_possible_key(void *arg)
 					sprintf(serial, "CP%02d%02d%02X%02X%02X", year, week, str[0], str[1], str[2]);
 					SHA1((const unsigned char *)serial, strlen(serial), sha1_out);
 
-					if (memcmp(&sha1_out[19] - 2, ident, 3) == 0)
+					if (memcmp(&sha1_out[19 - 2], ident, 3) == 0)
 					{
 						sha1_to_str(sha1_out, sha1_out_str);
 						sha1_out_str[10] = '\0';
@@ -73,13 +73,13 @@ int main(int argc, char *argv[])
 	if (argc != 2)
 	{
 		usage(argv[0]);
-		return EXIT_FAILURE;
+		return 1;
 	}
 	
 	if (strlen(argv[1]) != 6)
 	{
 		usage(argv[0]);
-		return EXIT_FAILURE;
+		return 1;
 	}
 	
 	str_to_upper(argv[1]);
@@ -88,7 +88,7 @@ int main(int argc, char *argv[])
 	if (sscanf(argv[1], "%02hhX%02hhX%02hhX", ident, &ident[1], &ident[2]) != 3)
 	{
 		usage(argv[0]);
-		return EXIT_FAILURE;
+		return 1;
 	}
 	
 	pthread_t thread[NUM_OF_YEARS];
@@ -96,14 +96,14 @@ int main(int argc, char *argv[])
 	for (int i = 0; i <= NUM_OF_YEARS; i++)
 	{
 		year[i] = YEAR_BEGIN_NUM + i;
-		if(pthread_create(&thread[i], NULL, &calc_possible_key, &year[i]))
+		if(pthread_create(&thread[i], NULL, &calc_possible_key, &year[i]) != 0)
 		{
 			safe_printf("Error creating thread\n");
 			return EXIT_FAILURE;
 		}
 	}
 	
-	for (int i = 0; i < NUM_OF_YEARS; i++)
+	for (int i = 0; i <= NUM_OF_YEARS; i++)
 	{
 		pthread_join(thread[i], NULL);
 	}
