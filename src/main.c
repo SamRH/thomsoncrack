@@ -10,7 +10,7 @@
 #define YEAR_BEGIN_NUM 8 //This "hack" is known to work with models made during the year 2008
 #define NUM_OF_YEARS 2  //and work for all models made up to and including 2010. 8 + 2 = 10
 
-static pthread_mutex_t stdout_mtx = PTHREAD_MUTEX_INITIALIZER;
+pthread_mutex_t stdout_mtx = PTHREAD_MUTEX_INITIALIZER;
 #define safe_printf(x, ...) pthread_mutex_lock(&stdout_mtx); printf(x, ## __VA_ARGS__); \
                             fflush(stdout); pthread_mutex_unlock(&stdout_mtx)
 
@@ -55,9 +55,10 @@ void *calc_possible_key(void *arg)
 
 					if (memcmp(&sha1_out[19 - 2], ident, 3) == 0)
 					{
+						safe_printf("Serial: %s\n", serial);
 						sha1_to_str(sha1_out, sha1_out_str);
 						sha1_out_str[10] = '\0';
-						safe_printf("Possible Key Found: %s\n", sha1_out_str);
+						safe_printf("Possible Key Found: %s\n\n", sha1_out_str);
 					}
 				}
 			}
@@ -91,8 +92,8 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 	
-	pthread_t thread[NUM_OF_YEARS];
-	int year[NUM_OF_YEARS];
+	pthread_t thread[NUM_OF_YEARS + 1];
+	int year[NUM_OF_YEARS + 1];
 	for (int i = 0; i <= NUM_OF_YEARS; i++)
 	{
 		year[i] = YEAR_BEGIN_NUM + i;
@@ -105,8 +106,12 @@ int main(int argc, char *argv[])
 	
 	for (int i = 0; i <= NUM_OF_YEARS; i++)
 	{
-		pthread_join(thread[i], NULL);
+		if (pthread_join(thread[i], NULL) != 0)
+		{
+			safe_printf("Error joining thread\n");
+		}
 	}
 
+	safe_printf("Done!\n");
 	return EXIT_SUCCESS;
 }
