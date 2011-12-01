@@ -7,9 +7,14 @@ found in the default SSID.
 The executable accepts one argument; the identifying
 string at the end of the SSID. For example, if the ssid was
 "ThomsonCDEA15" then usage would be: `thomsoncrack CDEA15`.
+
 The resulting output would look somthing like:
+
+Serial: CP0911524243
 Possible Key Found: 68510B64B3
-Possible Key Found: B264B29568
+
+Done!
+
 
 thomsoncrack requires pthreads and uses libcrypto from openssl.
 

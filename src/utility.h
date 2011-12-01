@@ -1,3 +1,5 @@
+// vim: noexpandtab sw=4
+
 #ifndef UTILITY_H
 #define UTILITY_H
 

@@ -1,3 +1,5 @@
+// vim: noexpandtab sw=4
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -28,13 +30,13 @@ void *calc_possible_key(void *arg)
 {
 	//Possible characters that make up the key
 	const unsigned char chars[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	
+
 	int year = *((int *)arg);
 	char str[3];
 	char serial[13];
 	unsigned char sha1_out[20];
 	char sha1_out_str[41];
-	
+
 	const int NUM_WEEKS_YEAR = 53;
 	const int NUM_POSSIBLE_CHARS = 36;
 
@@ -64,25 +66,25 @@ void *calc_possible_key(void *arg)
 			}
 		}
 	}
-	
+
 	return NULL;
 }
 
 int main(int argc, char *argv[])
 {
-	
+
 	if (argc != 2)
 	{
 		usage(argv[0]);
 		return 1;
 	}
-	
+
 	if (strlen(argv[1]) != 6)
 	{
 		usage(argv[0]);
 		return 1;
 	}
-	
+
 	str_to_upper(argv[1]);
 
 	//convert the hexidecimal number represented in the string back to their "true" form
@@ -91,7 +93,7 @@ int main(int argc, char *argv[])
 		usage(argv[0]);
 		return 1;
 	}
-	
+
 	pthread_t thread[NUM_OF_YEARS + 1];
 	int year[NUM_OF_YEARS + 1];
 	for (int i = 0; i <= NUM_OF_YEARS; i++)
@@ -103,7 +105,7 @@ int main(int argc, char *argv[])
 			return EXIT_FAILURE;
 		}
 	}
-	
+
 	for (int i = 0; i <= NUM_OF_YEARS; i++)
 	{
 		if (pthread_join(thread[i], NULL) != 0)
