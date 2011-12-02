@@ -16,6 +16,11 @@ pthread_mutex_t stdout_mtx = PTHREAD_MUTEX_INITIALIZER;
 #define safe_printf(x, ...) pthread_mutex_lock(&stdout_mtx); printf(x, ## __VA_ARGS__); \
                             fflush(stdout); pthread_mutex_unlock(&stdout_mtx)
 
+size_t found_counter = 0;
+pthread_mutex_t found_counter_mtx = PTHREAD_MUTEX_INITIALIZER;
+#define found_counter_increment() pthread_mutex_lock(&found_counter_mtx); ++found_counter; \
+                                  pthread_mutex_unlock(&stdout_mtx)
+
 //the identifying part of the ssid converted back to binary data
 unsigned char ident[3];
 
@@ -61,6 +66,7 @@ void *calc_possible_key(void *arg)
 						sha1_to_str(sha1_out, sha1_out_str);
 						sha1_out_str[10] = '\0';
 						safe_printf("Possible Key Found: %s\n\n", sha1_out_str);
+						found_counter_increment();
 					}
 				}
 			}
@@ -114,6 +120,6 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	safe_printf("Done!\n");
+	safe_printf("%zu potential key(s) found!\n", found_counter);
 	return EXIT_SUCCESS;
 }
