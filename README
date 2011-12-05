@@ -8,7 +8,7 @@ The executable accepts one argument; the identifying
 string at the end of the SSID. For example, if the ssid was
 "ThomsonCDEA15" then usage would be: `thomsoncrack CDEA15`.
 
-The resulting output would look somthing like:
+The resulting output would look something like:
 
 Serial: CP0911524243
 Possible Key Found: 68510B64B3
