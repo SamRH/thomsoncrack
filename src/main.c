@@ -62,10 +62,10 @@ void *calc_possible_key(void *arg)
 
 					if (memcmp(&sha1_out[19 - 2], ident, 3) == 0)
 					{
-						safe_printf("Serial: %s\n", serial);
+						safe_printf("Device Serial Number: %s\n", serial);
 						sha1_to_str(sha1_out, sha1_out_str);
 						sha1_out_str[10] = '\0';
-						safe_printf("Possible Key Found: %s\n\n", sha1_out_str);
+						safe_printf("Key: %s\n\n", sha1_out_str);
 						found_counter_increment();
 					}
 				}
