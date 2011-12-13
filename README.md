@@ -3,12 +3,8 @@ for some Thomson routers based off of information found in the
 default SSID.
 
 Dependencies
-------------
-This product includes software developed by the OpenSSL Project 
-for use in the OpenSSL Toolkit. (http://www.openssl.org/)
-
-thomsoncrack depends on the following: the crypto library from OpenSSL and
-the POSIX threads API
+-----------
+thomsoncrack requires libcrypto from OpenSSL and POSIX threads
 
 Usage
 -----
@@ -50,3 +46,6 @@ Credit
 ------
 Stavros Korokithakis - http://www.korokithakis.net/ - His python script for generating
 default keys for certain Thomson devices is what I have based this program on.
+
+This product includes software developed by the OpenSSL Project for use in the OpenSSL
+Toolkit. (http://www.openssl.org/)
