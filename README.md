@@ -1,4 +1,4 @@
-thomsoncrack is a tool designed to generate the default password 
+thomsoncrack is a tool designed to estimate the default password
 for some Thomson routers based off of information found in the
 default SSID.
 
