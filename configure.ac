@@ -1,4 +1,4 @@
-AC_INIT([thomsoncrack], [1.5], [hegarty.sam@gmail.com])
+AC_INIT([thomsoncrack], [1.6], [hegarty.sam@gmail.com])
 AM_INIT_AUTOMAKE([-Wall foreign])
 AC_PROG_CC_C99
 AC_CONFIG_HEADERS([config.h])

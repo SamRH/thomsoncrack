@@ -14,7 +14,7 @@
 
 pthread_mutex_t stdout_mtx = PTHREAD_MUTEX_INITIALIZER;
 #define safe_printf(x, ...) pthread_mutex_lock(&stdout_mtx); printf(x, ## __VA_ARGS__); \
-                            fflush(stdout); pthread_mutex_unlock(&stdout_mtx)
+                            pthread_mutex_unlock(&stdout_mtx)
 
 size_t found_counter = 0;
 pthread_mutex_t found_counter_mtx = PTHREAD_MUTEX_INITIALIZER;
@@ -121,5 +121,6 @@ int main(int argc, char *argv[])
 	}
 
 	safe_printf("%zu potential key(s) found!\n", found_counter);
+	fflush(stdout);
 	return EXIT_SUCCESS;
 }
