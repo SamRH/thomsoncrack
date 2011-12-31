@@ -4,7 +4,7 @@ default SSID.
 
 Dependencies
 -----------
-thomsoncrack requires libcrypto from OpenSSL and POSIX threads
+thomsoncrack requires libcrypto from OpenSSL and POSIX threads.
 
 Usage
 -----
