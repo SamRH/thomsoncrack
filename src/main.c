@@ -1,9 +1,11 @@
 // vim: noexpandtab sw=4
 
+// Standard includes
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+// Non-standard includes
 #include <pthread.h>
 #include <openssl/sha.h>
 
@@ -12,25 +14,33 @@
 #define YEAR_BEGIN_NUM 8 //This "hack" is known to work with models made during the year 2008
 #define NUM_OF_YEARS 2  //and work for all models made up to and including 2010. 8 + 2 = 10
 
+// This mutex will be used to prevent interleaving of data written to stdout
+// The safe_printf macro-function prevents from having to remember to lock and unlock
 pthread_mutex_t stdout_mtx = PTHREAD_MUTEX_INITIALIZER;
 #define safe_printf(x, ...) pthread_mutex_lock(&stdout_mtx); printf(x, ## __VA_ARGS__); \
                             pthread_mutex_unlock(&stdout_mtx)
 
+// The variable found counter will be used to keep a track of how many potential keys have been found
+// The found_counter_increment macro simplifys usage
 unsigned long long found_counter = 0;
 pthread_mutex_t found_counter_mtx = PTHREAD_MUTEX_INITIALIZER;
 #define found_counter_increment() pthread_mutex_lock(&found_counter_mtx); ++found_counter; \
                                   pthread_mutex_unlock(&stdout_mtx)
 
-//the identifying part of the ssid converted back to binary data
+// The identifying part of the SSID converted back to binary data
+// This will be written to ONCE before creating any threads and from there on will
+// only be read
 unsigned char ident[3];
 
+// The usage function informs users how to use the program
 void usage(const char *name)
 {
 	safe_printf("Usage: %s ssid_identifier\nExample ssid_identifier: CDEA15\n", name);
 }
 
-//Calculate possible wep and wpa keys for the year passed as an integer
-//intended to be run from pthread_create
+// Calculate possible wep and wpa keys for the year passed as an integer
+// Intended to be run from pthread_create
+// See the README.md file for information on how this function works and what it does
 void *calc_possible_key(void *arg)
 {
 	//Possible characters that make up the key
@@ -78,7 +88,7 @@ void *calc_possible_key(void *arg)
 
 int main(int argc, char *argv[])
 {
-
+	// Argument checking
 	if (argc != 2)
 	{
 		usage(argv[0]);
@@ -93,13 +103,14 @@ int main(int argc, char *argv[])
 
 	str_to_upper(argv[1]);
 
-	//convert the hexidecimal number represented in the string back to their "true" form
+	// Convert the hexidecimal number represented in the string back to their "true" form
 	if (sscanf(argv[1], "%02hhX%02hhX%02hhX", ident, &ident[1], &ident[2]) != 3)
 	{
 		usage(argv[0]);
 		return 1;
 	}
 
+	// Create and launch a thread for each year the mistake was made
 	pthread_t thread[NUM_OF_YEARS + 1];
 	int year[NUM_OF_YEARS + 1];
 	for (int i = 0; i <= NUM_OF_YEARS; i++)
@@ -112,6 +123,7 @@ int main(int argc, char *argv[])
 		}
 	}
 
+	// Wait for all threads to complete
 	for (int i = 0; i <= NUM_OF_YEARS; i++)
 	{
 		if (pthread_join(thread[i], NULL) != 0)
@@ -120,6 +132,7 @@ int main(int argc, char *argv[])
 		}
 	}
 
+	// Print how many keys were found and ensure no data is left unwritten to stdout
 	safe_printf("%llu potential key(s) found!\n", found_counter);
 	fflush(stdout);
 	return EXIT_SUCCESS;
