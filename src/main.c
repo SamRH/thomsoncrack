@@ -56,30 +56,24 @@ void *calc_possible_key(void *arg)
 	const int NUM_POSSIBLE_CHARS = 36;
 
 	for (int week = 1; week <= NUM_WEEKS_YEAR; week++)
+	for (int i = 0; i < NUM_POSSIBLE_CHARS; i++)
+	for (int j = 0; j < NUM_POSSIBLE_CHARS; j++)
+	for (int k = 0; k < NUM_POSSIBLE_CHARS; k++)
 	{
-		for (int i = 0; i < NUM_POSSIBLE_CHARS; i++)
+		str[0] = chars[i];
+		str[1] = chars[j];
+		str[2] = chars[k];
+
+		sprintf(serial, "CP%02d%02d%02X%02X%02X", year, week, str[0], str[1], str[2]);
+		SHA1((const unsigned char *)serial, strlen(serial), sha1_out);
+
+		if (memcmp(&sha1_out[19 - 2], ident, 3) == 0)
 		{
-			for (int j = 0; j < NUM_POSSIBLE_CHARS; j++)
-			{
-				for (int k = 0; k < NUM_POSSIBLE_CHARS; k++)
-				{
-					str[0] = chars[i];
-					str[1] = chars[j];
-					str[2] = chars[k];
-
-					sprintf(serial, "CP%02d%02d%02X%02X%02X", year, week, str[0], str[1], str[2]);
-					SHA1((const unsigned char *)serial, strlen(serial), sha1_out);
-
-					if (memcmp(&sha1_out[19 - 2], ident, 3) == 0)
-					{
-						safe_printf("Device Serial Number: %s\n", serial);
-						sha1_to_str(sha1_out, sha1_out_str);
-						sha1_out_str[10] = '\0';
-						safe_printf("Key: %s\n\n", sha1_out_str);
-						found_counter_increment();
-					}
-				}
-			}
+			safe_printf("Device Serial Number: %s\n", serial);
+			sha1_to_str(sha1_out, sha1_out_str);
+			sha1_out_str[10] = '\0';
+			safe_printf("Key: %s\n\n", sha1_out_str);
+			found_counter_increment();
 		}
 	}
 
