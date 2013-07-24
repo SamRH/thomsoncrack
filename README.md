@@ -32,7 +32,7 @@ How it Works
 The last six digits of the default Thomson router SSIDs are a hexedecimal
 representation of the last three bytes of a SHA1 sum generated from the
 device's serial number. Each serial number consists of the string "CP",
-a number representing the year it the device was manufactured, the week
+a number representing the year the device was manufactured, the week
 the device was manufacture, and the hexidecimal representation of three
 potentially random alpha-numeric characters.
 
