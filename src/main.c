@@ -25,7 +25,7 @@ pthread_mutex_t stdout_mtx = PTHREAD_MUTEX_INITIALIZER;
 unsigned long long found_counter = 0;
 pthread_mutex_t found_counter_mtx = PTHREAD_MUTEX_INITIALIZER;
 #define found_counter_increment() pthread_mutex_lock(&found_counter_mtx); ++found_counter; \
-                                  pthread_mutex_unlock(&stdout_mtx)
+                                  pthread_mutex_unlock(&found_counter_mtx)
 
 // The identifying part of the SSID converted back to binary data
 // This will be written to ONCE before creating any threads and from there on will
